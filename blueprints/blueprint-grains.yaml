@@ -1,0 +1,40 @@
+spec_version: 2
+inputs:
+  agent:
+    type: agent
+    allowed-values:
+      - eks-cluster
+outputs:
+  curl_response:
+    value: '{{ .grains.curl.outputs.curl_response }}'
+    quick: false
+  curl_todo_title:
+    value: '{{ .grains.curl.outputs.curl_todo_title }}'
+    quick: false
+  curl_todo_completed:
+    value: '{{ .grains.curl.outputs.curl_todo_completed }}'
+    quick: false
+grains:
+  curl:
+    kind: blueprint
+    name: curl
+    spec:
+      source:
+        store: qtorque
+        path: curl
+      inputs:
+        - url: https://google.com
+        - agent: '{{ .inputs.agent }}'
+      outputs:
+        - curl_response
+        - curl_todo_completed
+        - curl_todo_title
+  vido:
+    kind: blueprint
+    name: vido
+    spec:
+      source:
+        store: qtorque
+        path: vido
+      inputs:
+        - agent: '{{ .inputs.agent }}'
