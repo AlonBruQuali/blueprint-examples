@@ -38,3 +38,4 @@ grains:
         path: vido
       inputs:
         - agent: '{{ .inputs.agent }}'
+    depends-on: curl
