@@ -17,7 +17,6 @@ outputs:
 grains:
   curl:
     kind: blueprint
-    name: curl
     spec:
       source:
         store: qtorque
@@ -31,7 +30,6 @@ grains:
         - curl_todo_title
   vido:
     kind: blueprint
-    name: vido
     spec:
       source:
         store: qtorque
