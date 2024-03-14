@@ -16,7 +16,7 @@ jobs:
         kind: shell
         spec:
             agent:
-                name: tomerv
+                name: review1-vido
             sources:
                 - store: tomer_playground
                   path: scripts/print-resource.sh
@@ -31,7 +31,7 @@ jobs:
         depends-on: job1
         spec:
             agent:
-                name: tomerv           
+                name: review1-vido           
             commands:
                 - name: print
                   command:  'echo output from job1 is {{ .jobs.job1.outputs.print }}'
