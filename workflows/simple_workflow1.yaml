@@ -1,0 +1,23 @@
+kind: workflow
+description: some workflow 2
+scope: env_resource
+label-selector: vm
+inputs:
+  volume_id:
+    type: string
+    default: 'volume-1'
+outputs:
+  job1_output: '{{ .jobs.my_job.outputs.print }}'
+  workflow_input: '{{ .inputs.volume_id }}'
+  
+jobs:
+    my_job:
+        kind: shell
+        spec:
+            agent:
+                name: review1-vido           
+            commands:
+                - name: print
+                  command:  'echo hello'
+            outputs:
+                - print
