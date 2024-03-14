@@ -1,0 +1,28 @@
+kind: workflow
+description: some workflow 2
+scope: env_resource
+label-selector: vm
+
+inputs:
+    a1:
+        type: string
+        default: 'data_'
+    a2:
+        type: string
+    a3:
+        type: string
+    
+
+jobs:
+    filter_vms:
+        kind: shell
+        spec:
+            agent:
+                name: tomerv
+            sources:
+                - store: tomer_playground
+                  path: scripts/filter_vms.sh
+            commands:
+                - 'echo tomer'
+            outputs:
+                - vm_list

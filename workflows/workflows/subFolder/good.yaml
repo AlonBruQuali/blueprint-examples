@@ -1,0 +1,42 @@
+kind: workflow
+description: some workflow 2
+inputs:
+    vm_prefix:
+        type: string
+        default: 'data_'
+jobs:
+    filter_vms:
+        kind: shell
+        spec:
+            agent:
+                name: test_agent
+            sources:
+                - store: tomer_playground_workflows
+                  path: scripts/filter_vms.sh
+            commands:
+                - './filter_vms env_id={{ .binding.environment_id }} vm_prefix={{ .inputs.vm_prefix }}'
+            outputs:
+                - vm_list
+
+    take_vms_snapshots:
+        kind: shell
+        depends-on: filter_vms
+        spec:
+            items: '{{ .jobs.filter_vms.outputs.vm_list }}'
+            agent:
+                name: test_agent
+            sources:
+                - store: tomer_playground_workflows
+                  path: scripts/take_snapshot.sh
+            commands:
+                - 'echo running take_snapshot on vm {{ .item }}'
+                - './take_snapshot.sh vm={{ .item }}'
+
+    print_snapshots_paths:
+        kind: shell
+        depends-on: take_vms_snapshots
+        spec:
+            agent:
+                name: test_agent
+            commands:
+                - 'echo the snapshots are ready: {{ .jobs.take_vms_snapshots.result }}'

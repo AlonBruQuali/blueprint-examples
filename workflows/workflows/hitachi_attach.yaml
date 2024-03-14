@@ -1,0 +1,19 @@
+kind: workflow
+description: attach volume to vm
+entity-type: env_resource
+label-selector: vm
+
+inputs:
+    volume_id:
+        type: String
+jobs:
+    attach_to_vm:
+        kind: shell
+        spec:
+            agent:
+                name: <agent_name>
+            sources:
+                - store: hitachi_workflows_repo
+                  path: scripts/attach_vm.sh
+            commands:
+                - './attach_vm.sh env_id={{ .binding.environment_id }} vm_id={{ .binding.resource_id }} volume_id={{ .inputs.volume_id }}'

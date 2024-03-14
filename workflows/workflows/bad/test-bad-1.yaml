@@ -1,0 +1,11 @@
+kind: workflow
+description: some workflow
+inputs:
+    vm_prefix:
+        type: string
+        default: 'data_'
+jobs:
+    filter_vms:
+        kind: shell
+        spec
+        not good;;';.'''

@@ -1,0 +1,39 @@
+kind: workflow
+description: some workflow 2
+scope: env_resource
+label-selector: vm
+inputs:
+  volume_id:
+    type: string
+    default: 'volume-1'
+outputs:
+  job1_output: '{{ .jobs.job1.outputs.print }}'
+  job2_output: '{{ .jobs.job2.outputs.print }}'
+  workflow_input: '{{ .inputs.volume_id }}'
+  
+jobs:
+    job1:
+        kind: shell
+        spec:
+            agent:
+                name: tomerv
+            sources:
+                - store: tomer_playground
+                  path: scripts/print-resource.sh
+            commands:
+                - name: print
+                  command:  'source print-resource.sh {{ .bindings.resource_id }} {{ .bindings.grain_path }}'
+            outputs:
+                - print
+
+    job2:
+        kind: shell
+        depends-on: job1
+        spec:
+            agent:
+                name: tomerv           
+            commands:
+                - name: print
+                  command:  'echo output from job1 is {{ .jobs.job1.outputs.print }}'
+            outputs:
+                - print
