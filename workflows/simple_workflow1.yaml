@@ -6,6 +6,9 @@ inputs:
   volume_id:
     type: string
     default: 'volume-1'
+  volume_test:
+    type: string
+    default: 'volume'
 outputs:
   job1_output: '{{ .jobs.my_job.outputs.print }}'
   workflow_input: '{{ .inputs.volume_id }}'
