@@ -1,0 +1,17 @@
+kind: environment
+environment_name: 2 Azure VMs-20240418T20273710
+state: inactive
+owner_email: alon.b@quali.com
+blueprint:
+  name: s3-create_10
+  repository_name: qtorque
+inputs:
+  agent: aks-review1
+tags: {}
+grains:
+  vm2:
+    source:
+      commit: 040953dc6ff713f90e8ba76ca07c4da1a7b8d84c
+  vm1:
+    source:
+      commit: 040953dc6ff713f90e8ba76ca07c4da1a7b8d84c
