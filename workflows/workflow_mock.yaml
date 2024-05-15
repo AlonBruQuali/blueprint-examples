@@ -1,1 +1,49 @@
-w
+spec_version: 2
+description: workflow with nested yaml 
+
+workflow: true
+workflow-metadata:  
+  scope: env
+  
+inputs:
+  input1:
+    type: string
+    default: 'yaml-default1'
+  input2:
+    type: string
+  agent:
+    type: agent
+    display-style: normal
+    description: "agent name." 
+
+outputs:
+  input1:
+    value: '{{ .inputs.input1 }}'
+  input2:
+    value: '{{ .inputs.input2 }}'
+  
+grains:
+  shell:
+    kind: shell
+    spec:
+      agent:
+        name: '{{ .inputs.agent }}'
+      files:
+        - source: dbs
+          path: scripts/script.sh
+      activities:
+        deploy:
+          commands:
+            - name: print                    
+              command:  'echo "job1 output"'                    
+
+  simple-workflow-env-scope:
+    kind: blueprint
+    depends-on: shell
+    spec:
+      source:
+        store: dbs
+        path: 'blueprints/Environment-Workflow.yaml'
+      inputs:
+        - agent: '{{.inputs.agent}}'  
+    
