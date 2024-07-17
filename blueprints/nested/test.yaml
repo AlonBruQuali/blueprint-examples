@@ -6,9 +6,4 @@ inputs:
     type: string
     default: https://jsonplaceholder.typicode.com/todos/1
     description: url to curl
-  
-outputs:
-  curl_response:
-    value: '{{ .grains.curl.outputs.response }}'
-    quick: true
-    
+
