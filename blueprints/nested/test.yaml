@@ -12,16 +12,3 @@ outputs:
     value: '{{ .grains.curl.outputs.response }}'
     quick: true
     
-grains:
-  curl:
-    kind: terraform
-    spec:
-      source:
-        store: dbs
-        path: terraform/curl
-           inputs:
-      - url: '{{ .inputs.url }}'
-      env-vars: []
-      outputs:
-      - response
-    tf-version: 1.5.5
