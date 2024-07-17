@@ -7,9 +7,6 @@ inputs:
     default: https://jsonplaceholder.typicode.com/todos/1
     description: url to curl
   
-  agent:
-    type: agent
-
 outputs:
   curl_response:
     value: '{{ .grains.curl.outputs.response }}'
@@ -22,9 +19,7 @@ grains:
       source:
         store: dbs
         path: terraform/curl
-      agent:
-        name: '{{ .inputs.agent }}'
-      inputs:
+           inputs:
       - url: '{{ .inputs.url }}'
       env-vars: []
       outputs:
