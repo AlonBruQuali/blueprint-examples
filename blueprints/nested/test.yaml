@@ -1,0 +1,32 @@
+spec_version: 2
+description: General purpose curl
+
+inputs:
+  url:
+    type: string
+    default: https://jsonplaceholder.typicode.com/todos/1
+    description: url to curl
+  
+  agent:
+    type: agent
+
+outputs:
+  curl_response:
+    value: '{{ .grains.curl.outputs.response }}'
+    quick: true
+    
+grains:
+  curl:
+    kind: terraform
+    spec:
+      source:
+        store: dbs
+        path: terraform/curl
+      agent:
+        name: '{{ .inputs.agent }}'
+      inputs:
+      - url: '{{ .inputs.url }}'
+      env-vars: []
+      outputs:
+      - response
+    tf-version: 1.5.5
